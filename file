@@ -1,0 +1,22 @@
+#!/bin/bash
+i=0
+cat ./Data/username_password | while read line
+do 
+((i++))
+if [ $i -eq 1 ] 
+then
+p1=$(echo "$line" | cut -f 2 -d ':')
+echo "$p1"
+fi
+if [ $i -eq 2 ]
+then
+p2=$(echo "$line" | cut -f 2 -d ':')
+echo "$p2"
+fi
+if [ $i -eq 3 ]
+then
+p3=$(echo "$line" | cut -f 2 -d ':')
+echo "$p3"
+fi
+done
+

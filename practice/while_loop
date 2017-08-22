@@ -1,0 +1,14 @@
+i=0
+j=0
+cat ~e20925/linux.words | less | while read line
+do
+((i++))
+echo "$line"
+if [ $line = $1 ]
+then 
+echo $i
+break
+fi
+done
+
+

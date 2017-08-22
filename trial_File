@@ -1,0 +1,8 @@
+echo "user name:"
+read username
+echo "password"
+read password
+passwordhash=$(echo "$password" | sha256sum | awk '{print $1}')
+save="$username:$passwordhash"
+echo "$username:$passwordhash" >> username_password
+echo "$0"

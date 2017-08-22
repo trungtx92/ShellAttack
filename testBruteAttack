@@ -1,0 +1,81 @@
+#!/bin/bash
+#--------------------------------fixxing----------------------
+lineNum=0
+cat ./Data/username_password | less | while read line
+do
+((lineNum++))
+if [ $lineNum -eq 1 ]
+then
+passwordAndy=$(echo "$line" | cut -f 2 -d ':')
+#echo "$passwordAndy"
+continue
+fi
+if [ $lineNum -eq 2 ]
+then 
+passwordBecca=$(echo "$line" | cut -f 2 -d ':')
+#echo "$passwordBecca"
+continue
+fi
+if [ $lineNum -eq 3 ]
+then
+passwordChris=$(echo "$line" | cut -f 2 -d ':')
+#echo "$passwordChris"
+continue
+fi
+done
+echo $passwordAndy
+echo $passwordBecca
+echo $passwordChris
+exit 1
+#passwordAndy=caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18
+#passwordBecca=3608bca1e44ea6c4d268eb6db02260269892c0b42b86bbf1e77a6fa16c3c9282
+#passwordChris=5d7f15f2fce8ddb2dbef5c38be896c238ba7e0a432e396759030a853fa6b1151
+p=62c6d2249a9b43d8fbccd187dd707074d707b056ff3e02438fca9493f26b7d2e
+p1=5e620ff64deb0e76e3bb9ca6cfa999a410b811489185aa65adf0714b7d9a1aee
+i=0
+
+for password in {a..z}
+do
+passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+echo "$password : $passwordhash"
+if [ $passwordBecca = $passwordhash ]
+then
+echo "password is $password
+exit" 
+fi
+done
+
+for password in {a..z}{a..z}
+do
+passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+echo "$password : $passwordhash"
+if [ $passwordBecca = $passwordhash ]
+then
+echo "password is $password
+exit" 
+fi
+done
+
+for password in {a..z}{a..z}{a..z}
+do
+((i++))
+passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+echo "$i : $password : $passwordhash"
+if [ $passwordBecca = $passwordhash ]
+then 
+echo "password is $password"
+exit 1
+fi
+done
+
+for password in {a..z}{a..z}{a..z}{a..z}
+do
+((i++))
+passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+echo "$i : $password : $passwordhash"
+if [ $passwordBecca = $passwordhash ]
+then 
+echo "password is $password"
+exit 1
+fi
+done

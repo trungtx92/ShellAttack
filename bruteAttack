@@ -1,0 +1,50 @@
+#!/bin/bash
+passwordAndy=caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18
+passwordBecca=3608bca1e44ea6c4d268eb6db02260269892c0b42b86bbf1e77a6fa16c3c9282
+passwordChris=5d7f15f2fce8ddb2dbef5c38be896c238ba7e0a432e396759030a853fa6b1151
+pass=f5fe88ee08735ae259265495a93c8de2b0eacfecf0cd90b5821479be3199fa8c
+for i in {a..z}
+do
+password=$(echo "$i")
+passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+echo "$password : $passwordhash"
+if [ $passwordBecca = $passwordhash ]
+then
+echo "Becca's password is $password"
+exit 1
+fi
+	for j in {a..z}
+	do
+	password=$(echo "$i$j")
+        passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+        echo "$password : $passwordhash"
+        if [ $passwordBecca = $passwordhash ]
+        then
+        echo "Becca's password is $password"
+        exit 1
+        fi
+		for k in {a..z}
+		do
+		password=$(echo "$i$j$k")
+		passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+		echo "$password : $passwordhash"
+		if [ $passwordBecca = $passwordhash ]
+		then
+		echo "Becca's password is $password"
+		exit 1
+		fi
+			for l in {a..z}
+			do
+			password=$(echo "$i$j$k$l")
+			passwordhash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+			echo "$password : $passwordhash"
+			if [ $passwordBecca = $passwordhash ]
+			then
+			echo "Becca's password is $password"
+			exit 1
+			fi
+			done
+		done
+	done
+done
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+passwordAndy=caf90169eefa5f807d577486b9f795ab86ae2983c5c20806cff959117e90af18
+i=0
+function echoFooBar {
+cat ~e20925/linux.words | less | while read line
+do
+passwordhash=$(echo -n "$line" | sha256sum | awk '{print $1}')
+echo "$line : $passwordhash"
+if [ $passwordAndy = $passwordhash ]
+then
+echo "password is $line"
+break 
+fi
+done
+}
+echoFooBar
+export -f echoFooBar
+timeout 10s bash -c echoFooBar
+
